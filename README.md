@@ -5,6 +5,10 @@ This repository contains my work from the Python Advanced course.
 It is used as a structured learning archive and practice environment.
 The goal is to move from core Python to real backend development.
 
+
+![snake](assets/uwabami.png)
+
+
 ⸻
 
 What is inside
