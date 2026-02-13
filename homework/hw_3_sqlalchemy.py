@@ -1,22 +1,4 @@
-# Задача 1: Создайте экземпляр движка для подключения к SQLite базе данных в памяти.
-#
-# Задача 2: Создайте сессию для взаимодействия с базой данных, используя созданный движок.
-#
-# Задача 3: Определите модель продукта Product со следующими типами колонок:
-#
-# id: числовой идентификатор
-# name: строка (макс. 100 символов)
-# price: числовое значение с фиксированной точностью
-# in_stock: логическое значение
-
-
-# Задача 4: Определите связанную модель категории Category со следующими типами колонок:
-# id: числовой идентификатор
-# name: строка (макс. 100 символов)
-# description: строка (макс. 255 символов)
-# Задача 5: Установите связь между таблицами Product и Category с помощью колонки category_id.
-
-#=================== Imports ===================
+#part =================== Imports ===================
 from decimal import Decimal
 from sqlalchemy import (create_engine,
                         Numeric ,
@@ -34,16 +16,8 @@ from sqlalchemy.orm import (sessionmaker,
                             relationship)
 from pathlib import Path
 import sqlite3
-
-#=================== Imports ===================
-
-#1.Create engine exemplar for SQLite db connection.
-
-engine = create_engine(
-    url=f"sqlite:///:memory:", echo=True
-)
-
-#2. Creating Session for connection via engine to db
+from my_db_connector import engine
+#part =================== Imports ===================
 
 Session = sessionmaker(bind=engine)
 
@@ -88,7 +62,6 @@ class Product(Base):
     )
     category = relationship("Category", back_populates="products")
 
-#4.Create Category table:
 
 class Category(Base):
     __tablename__ = 'category'
