@@ -248,19 +248,77 @@ with DBConnector(engine) as session:
     #     print(user.first_name, user.role_id)
 
     #NOTE: her users with their news feed.
-    stmt = (
-        select(User)
-        .join(Role, Role.id == User.role_id) # Withdraw just table without data
-        .outerjoin(News, User.id == News.author_id)
-        .options(joinedload(User.news)) # withdraw table with actual data innit
-        .where(Role.name == 'author')
-    )
-    result = session.execute(stmt).scalars()
+    # stmt = (
+    #     select(User)
+    #     .join(Role, Role.id == User.role_id) # Withdraw just table without data
+    #     .outerjoin(News, User.id == News.author_id)
+    #     .options(joinedload(User.news)) # withdraw table with actual data innit
+    #     .where(Role.name == 'author')
+    # )
+    # result = session.execute(stmt).scalars()
+    # for user in result:
+    #     print(user.last_name, user.news)
 
-for user in result:
-    print(user.last_name, user.news)
+    #part ======================== Practice 3 ========================
+    #NOTE: Напишите запрос, который возвращает пользователя с конкретным именем (например, "Alice").
+    # stmt = (
+    #     select(User)
+    #     .where(User.first_name == "Alice")
+    # )
+    # res = session.execute(stmt).scalars()
+    # for user in res:
+    #     print(user)
 
+    #NOTE: Напишите запрос для вывода всех пользователей, рейтинг которых больше 6.
+    # stmt = (
+    #     select(User)
+    #     .where(User.rating > 6)
+    #     #.order_by(User.rating)
+    #     .order_by(desc(User.rating))
+    # )
+    # result = session.execute(stmt).scalars()
+    # for user in result:
+    #     print(user.rating, user.first_name)
 
+    #NOTE: Обновить рейтинг пользователя "Anna" до 3.4 если такой есть. Напишите запрос для обновления данных.
+    # stmt = (
+    #     select(User)
+    #     .where(User.first_name == "Anna", User.rating)
+    # )
+    # result = session.execute(stmt).scalars().first()
+    # results = session.execute(stmt).scalars()
+    # #print(result)
+    # if result:
+    #     result.rating = 3.4
+    #     session.commit()
+    #     print(result.first_name, result.rating)
+    # for user in results:
+    #     print(f"Name: {user.first_name} - Rating: {user.rating}")
 
+    #NOTE: Создайте запрос, который найдет максимальный и минимальный рейтинг среди пользователей.
+    # Используйте функции func.max() и func.min().
+    # stmt = (
+    #     select(
+    #         func.min(User.rating).label('min_rating'),
+    #         func.max(User.rating).label('max_rating')
+    #     )
+    # )
+    # result = session.execute(stmt).all()
+    # print(result)
+    # # print(list(result))
+    # print(result[0].min_rating)
+    # print(result[0].max_rating)
 
+    #NOTE: Напишите запрос, который группирует пользователей по рейтингу и подсчитывает
+    # количество пользователей в каждой группе.
+    # stmt = (
+    #     select(User.rating,
+    #            func.count(User.id).label('user_count')
+    #            )
+    #     .group_by(User.rating)
+    # )
+    # result = session.execute(stmt).all()
+    # #print(result)
+    # for user in result:
+    #     print(user.rating, user.user_count)
 
